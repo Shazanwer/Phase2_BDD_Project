@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "MAVEN_HOME"
+    }
+
+    stages {
+        stage('Fetch') {
+            steps {
+                // Get code from a GitHub repository
+                git 'https://github.com/Shazanwer/Phase2_BDD_Project'                
+            }
+        }
+
+	  stage('Build') {
+            steps {
+                // Run mvn command
+		        bat "mvn test -Dcucumber.options=${tags}"
+            }
+        }
+        
+      stage('Cucumber Reports') {
+          steps {
+              cucumber buildStatus: "SUCCESS",
+              fileIncludePattern: "**/cucumber.json",
+              jsonReportDirectory: 'target'
+          }
+      }    
+    }
+}
