@@ -14,14 +14,14 @@ public class PriceValidation {
 	WebDriver driver = BaseClass.driver;
 
 	@Then("I am inside the Sauce Demo application on the {string} page")
-	public void validate_pagename(String ExpPageName) {
+	public void validatePageName(String ExpPageName) {
 		// Write code here that turns the phrase above into concrete actions
 		String ActualPageName = driver.findElement(By.xpath("//span[@class='title']")).getText();
 		Assert.assertEquals(ExpPageName, ActualPageName);
 	}
 
 	@Then("Validate the Prices of the Product")
-	public void verify_ProductName_and_its_Price(io.cucumber.datatable.DataTable ProductPrice) {
+	public void verifyProductPrices(io.cucumber.datatable.DataTable ProductPrice) {
 		// Write code here that turns the phrase above into concrete actions
 		int rows = ProductPrice.height();
 		for (int i = 0; i < rows; i++) {
